@@ -10,16 +10,25 @@ import os.path
 import sys
 import time
 
-if len(sys.argv) != 2 :
-    print('Usage: degree-eval lastName')
+valid = len(sys.argv) == 2 or len(sys.argv) == 3 or (len(sys.argv) >= 3 and sys.argv[len(sys.argv)-1] == '--reset')
+
+if not valid:
+    print('Usage: degree-eval lastName [firstName] [--reset]')
     exit()
 
 lastName = sys.argv[1]
+firstName = None
+if len(sys.argv) > 2:
+	firstName = sys.argv[2]
+	if firstName == '--reset' :
+		firstName = None
+
+if '--reset' in sys.argv:
+	os.remove(cfile)
 
 driver = webdriver.Firefox()
 driver.implicitly_wait(10)
 cfile = '/Users/dancikg/Downloads/degree_eval.p'
-
 
 if os.path.exists(cfile) :
     
@@ -42,11 +51,21 @@ else :
 
 # click Advanced search
 elem= driver.find_elements_by_tag_name('button')
-elem[0].click()
+elem[2].click()
 
-# enter student's name
+# enter student's last name
 el_ln = driver.find_element_by_id('lastName')
 el_ln.clear()
 el_ln.send_keys(lastName)
+
+if not firstName:
+	el_ln.send_keys(Keys.RETURN)
+	exit()
+
+# enter student's first name
+el_ln = driver.find_element_by_id('firstName')
+el_ln.clear()
+el_ln.send_keys(firstName)
 el_ln.send_keys(Keys.RETURN)
+
 

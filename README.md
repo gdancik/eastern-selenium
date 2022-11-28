@@ -6,7 +6,7 @@ Automated browsing for common Eastern tasks using Python selenium
 Look up a person's degree evaluation by their last name
 
 ```
-degree_eval.py lastName
+degree_eval.py lastName [firstName] [--reset]
 ```
 
 ### Show my courses
