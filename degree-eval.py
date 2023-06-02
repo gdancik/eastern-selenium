@@ -1,4 +1,4 @@
-#!/Users/dancikg/opt/anaconda3/bin/python
+#!/Users/dancikg/anaconda3/bin/python
 
 # Pull up degree evals for student by last name
 
@@ -50,11 +50,11 @@ else :
 
 
 # click Advanced search
-elem= driver.find_elements_by_tag_name('button')
+elem= driver.find_elements(by = 'tag name', value = 'button')
 elem[2].click()
 
 # enter student's last name
-el_ln = driver.find_element_by_id('lastName')
+el_ln = driver.find_element(by = 'id', value = 'lastName')
 el_ln.clear()
 el_ln.send_keys(lastName)
 
@@ -63,7 +63,7 @@ if not firstName:
 	exit()
 
 # enter student's first name
-el_ln = driver.find_element_by_id('firstName')
+el_ln = driver.find_element(by = 'id', value = 'firstName')
 el_ln.clear()
 el_ln.send_keys(firstName)
 el_ln.send_keys(Keys.RETURN)
