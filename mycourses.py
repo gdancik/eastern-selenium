@@ -10,7 +10,7 @@ from selenium.webdriver.support.select import Select
 
 
 if (len(sys.argv) == 2 and sys.argv[1].lower() == '--help' or len(sys.argv) > 3) :
-     print('Usage: mycourses [--csc|--dsc] [--back]')
+     print('Usage: mycourses [--csc|--dsc|--mat] [--back]')
      exit()
 
 
@@ -37,17 +37,17 @@ both.click()
 
 
 # select 'Computer Science' (direct selection does not work)
-if len(sys.argv) > 1 and sys.argv[1].lower() in ['--csc', '--dsc']: 
-    subj = sys.argv[1].lower() 
+if len(sys.argv) > 1 and sys.argv[1].lower() != '--back': 
+    subj = sys.argv[1].upper().strip('--') 
     select = Select(driver.find_element(by = 'id', value = 'subj_id'))
     subj_input = driver.find_element(by = 'id', value = 'subj_id')
-    subj_input.send_keys('c')
-    for i in range(20) :
+    subj_input.send_keys(Keys.DOWN)
+    print('looking at', select.first_selected_option.get_attribute('value'))
+    for i in range(100) :
+        print('looking at', select.first_selected_option.get_attribute('value'))
+        if select.first_selected_option.get_attribute('value') == subj :
+            break
         subj_input.send_keys(Keys.DOWN)
-        if subj == '--csc' and select.first_selected_option.text == 'Computer Science' :
-            break
-        elif subj == '--dsc' and select.first_selected_option.text == 'Data Science' :
-            break
 else : 
     # select instructor (direct selection does not work)
     select = Select(driver.find_element(by = 'id', value = 'instr_id'))
