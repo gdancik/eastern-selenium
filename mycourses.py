@@ -10,7 +10,9 @@ from selenium.webdriver.support.select import Select
 
 
 if (len(sys.argv) == 2 and sys.argv[1].lower() == '--help' or len(sys.argv) > 3) :
-     print('Usage: mycourses [--csc|--dsc|--mat] [--back]')
+     print('Usage: mycourses [--subj] [--term]')
+     print('\t subj: three character subject code,e.g., csc')
+     print('\t term: fall, summer, spring, or winter')
      exit()
 
 
@@ -22,9 +24,22 @@ driver.get("https://ssb-prod.ec.easternct.edu/PROD/bwskfcls.p_termsel")
 
 # select term
 elem = driver.find_elements(by = 'id', value = 'term_id')
-if '--back' in sys.argv :
-	s = Select(elem[0])
-	s.select_by_index(2)
+
+def getTerm(args) :
+   for term in ['--fall','--spring','--summer','--winter'] :
+     if term in args :
+      return term[2:].capitalize() 
+   return None
+
+term = getTerm(sys.argv)
+
+print(sys.argv, 'term =', term)
+
+if term :
+  s = Select(elem[0])
+  for i, opt in enumerate(s.options) :
+    if term in opt.text:
+        s.select_by_index(i)
 
 # submit term
 elem= driver.find_elements(by = 'tag name', value = 'input')
