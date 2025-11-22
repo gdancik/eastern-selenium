@@ -1,3 +1,8 @@
+# My Courses V2
+# navigates to csc course load of Dr Dancik, G. for the specified term.
+# Author: Tucker Noniewicz
+# Production Date: 11/22/2025
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
