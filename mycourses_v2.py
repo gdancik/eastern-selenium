@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 import sys
 import datetime
@@ -33,7 +34,9 @@ if (len(sys.argv) == 2 and sys.argv[1].lower() == '--help' or len(sys.argv) > 3)
 
 
 #open a chrome webpage
-driver = webdriver.Chrome()
+chrome_options = Options()
+chrome_options.add_experimental_option("detach", True)
+driver = webdriver.Chrome(options=chrome_options)
 driver.implicitly_wait(10)
 
 #navigate to course schedule selection page
@@ -78,8 +81,3 @@ instructor_input.send_keys(Keys.ENTER)
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "search-go")))
 submit_bttn = driver.find_element(By.ID, "search-go")
 submit_bttn.click()
-
-if(input()):
-    driver.quit()
-
-
