@@ -1,0 +1,8 @@
+{
+    "mycourses_v2" : {
+        "defaults" : {
+            "subject":"csc",
+            "instructor":"" 
+        }
+    }
+}
